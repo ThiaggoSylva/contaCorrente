@@ -1,4 +1,5 @@
-﻿﻿class Program
+﻿﻿
+﻿class Program
 {
     static void Main(string[] args)
     {
@@ -16,40 +17,27 @@
         contaDois.saldo = 12000;
         contaDois.limiteDebito = 1200;
 
+        TelaPrincipal tela = new TelaPrincipal();
+        ContaCorrente contaAcessada = contaUm;
+
         while (true)
         {
-            Console.Clear();
-            Console.WriteLine("-------------------------------------");
-            Console.WriteLine($"Conta Corrente #{contaUm.numeroIdentificacao} de {contaUm.titular}");
-            Console.WriteLine("-------------------------------------");
-            Console.WriteLine("1 - Saque");
-            Console.WriteLine("2 - Depósito");
-            Console.WriteLine("3 - Transferência");
-            Console.WriteLine("4 - Consulta de Saldo");
-            Console.WriteLine("S - Sair");
-            Console.WriteLine("-------------------------------------");
-            Console.Write("Digite uma opção válida: ");
-            string? opcaoMenu = Console.ReadLine()?.ToUpper();
+            string? opcaoMenu = tela.ApresentarOpcoesMenu(contaAcessada);
 
             if (opcaoMenu == "S")
                 break;
 
             if (opcaoMenu == "1")
-            {
-                contaUm.Sacar();
-            }
+                tela.ApresentarOperacaoSaque(contaAcessada);
+
             else if (opcaoMenu == "2")
-            {
-                contaUm.Depositar();
-            }
+                tela.ApresentarOperacaoDeposito(contaAcessada);
+
             else if (opcaoMenu == "3")
-            {
-                contaUm.TransferirPara(contaDois);
-            }
+                tela.ApresentarOperacaoTransferencia(contaAcessada, contaDestino: contaDois);
+
             else if (opcaoMenu == "4")
-            {
-                contaUm.ObterSaldo();
-            }
+                tela.ApresentarOperacaoObterSaldo(contaAcessada);
         }
     }
 }
